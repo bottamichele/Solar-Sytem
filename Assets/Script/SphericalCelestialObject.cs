@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -7,9 +5,15 @@ using UnityEngine;
 /// </summary>
 public class SphericalCelestialObject : CelestialObject
 {
+    /* ==================================================
+     * ============= INSPECTOR'S PROPERTIES ============= 
+     * ================================================== */
+    [SerializeField]
+    [Tooltip("Equatorial radius (in km)")]
+    float equatorialRadius;             //Equatorial radius (in km) of celestial object.
 
-    [SerializeField] float equatorialRadius;        //Equatorial radius (in km) of celestial object.
-    [SerializeField] float flattening;              //Flattening of object celestial.
+    [SerializeField]
+    float flattening;                   //Flattening of object celestial.
 
     protected new void Start()
     {
@@ -23,7 +27,7 @@ public class SphericalCelestialObject : CelestialObject
     /// <returns>Equatorial radiues of spherical celestial object.</returns>
     public float GetEquatorialRadius()
     {
-        return this.transform.localScale.x;
+        return this.transform.localScale.x / 2.0f;
     }
 
     /// <summary>
@@ -32,6 +36,6 @@ public class SphericalCelestialObject : CelestialObject
     /// <returns>Polar radiues of spherical celestial object.</returns>
     public float GetPolarRadius()
     {
-        return this.transform.localScale.y;
+        return this.transform.localScale.y / 2.0f;
     }
 }

@@ -1,15 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Mesh of Saturn's rings.
+/// </summary>
 public class SaturnRings : MonoBehaviour
 {
-    [SerializeField] float radius;
-    [SerializeField] float tickness;
-    [Range(3, 64)] public int sidesCount;
+    /* ================================================== 
+     * ============= INSPECTOR'S PROPERTIES =============
+     * ================================================== */
+    [SerializeField]
+    [Tooltip("Radius of rings")]
+    float radius;                 //Radius of rings.
 
-    Mesh mesh;
+    [SerializeField]
+    [Tooltip("Tickness of rings")] 
+    float tickness;               //Tickness of rings.
+
+    [Range(3, 64)]
+    [Tooltip("Number of sides for cicle mesh")]
+    public int numSides;         //Number of sides for circle mesh.
+
+    /* ==================================================
+     * ==================== VARIABLE ====================
+     * ==================================================*/
+    Mesh mesh;                   //Mesh of Saturn's rings.
+
+    /* ================================================== 
+     * ==================== COMPONENT =================== 
+     * ================================================== */
     MeshFilter meshFilter;
+
 
     void Start()
     {
@@ -18,26 +39,23 @@ public class SaturnRings : MonoBehaviour
         meshFilter = gameObject.AddComponent<MeshFilter>();
         meshFilter.mesh = mesh;
 
-        CreateSaturnRingsMesh();
+        CreateMesh();
     }
 
-    void Update()
+    void CreateMesh()
     {
-    }
-
-    void CreateSaturnRingsMesh()
-    {
-        int numOfQuads = 4 * sidesCount * 2;
+        int numOfQuads = 4 * numSides * 2;
         Vector3[] meshVertices = new Vector3[numOfQuads];
         Vector3[] meshNormals = new Vector3[numOfQuads];
         int[] meshIndices = new int[numOfQuads];
         Vector2[] meshUvs = new Vector2[numOfQuads];
+        tickness = Mathf.Clamp01(tickness);
 
-        for(int i = 0; i < sidesCount; i++)
+        for (int i = 0; i < numSides; i++)
         {
             //Create quad.
-            float angle1 = i * (2*Mathf.PI / sidesCount);
-            float angle2 = (i + 1) * (2*Mathf.PI / sidesCount);
+            float angle1 = i * (2*Mathf.PI / numSides);
+            float angle2 = (i + 1) * (2*Mathf.PI / numSides);
 
             Vector3 dir1 = new Vector3(Mathf.Cos(angle1), 0.0f, Mathf.Sin(angle1));
             Vector3 dir2 = new Vector3(Mathf.Cos(angle2), 0.0f, Mathf.Sin(angle2));
@@ -85,6 +103,7 @@ public class SaturnRings : MonoBehaviour
             meshIndices[8 * i + 7]  = 8 * i + 7;
         }
 
+        //Set mesh.
         mesh.Clear();
         mesh.SetVertices(meshVertices);
         mesh.SetNormals(meshNormals);

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -24,7 +22,7 @@ public class ScaleConverter
     /// <returns>Length scaled.</returns>
     public static float ScaleLength(float length)
     {
-        return length / (1.495978707f * Mathf.Pow(10, 8));
+        return length / (1.495978707f * Mathf.Pow(10, 8) / 10);
     }
 
     /// <summary>

@@ -1,30 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-[RequireComponent(typeof(Rigidbody))]
 
 /// <summary>
 /// A celestial object.
 /// </summary>
+[RequireComponent(typeof(Rigidbody))]
 public class CelestialObject : MonoBehaviour
 {
     /* ==================================================
      * ============= INSPECTOR'S PROPERTIES ============= 
      * ================================================== */
-    [SerializeField] float mass;                    //Mass (in kg) of celestial object.
-    [SerializeField] float rotationPeriod;          //Period rotation (in days) of celestial object.
-    [SerializeField] float axialTilt;               //Axial tilt (in degree) of celestial object.
+    [Header("Charateristics")]
+
+    [SerializeField] 
+    [Tooltip("Mass (in kg)")]
+    float mass;                         //Mass (in kg) of celestial object.
+
+    [SerializeField]
+    [Tooltip("Rotation period (in day)")]
+    float rotationPeriod;               //Period rotation (in days) of celestial object.
+
+    [SerializeField]
+    [Tooltip("Axial tilt (in degree)")]
+    float axialTilt;                    //Axial tilt (in degree) of celestial object.
 
     /* ==================================================
      * =================== COMPONENTS ===================
      * ================================================== */
-    Rigidbody rigidbd;                              //Rigid body of celestial object.
+    Rigidbody rigidbd;                  //Rigid body of celestial object.
 
     /* ================================================== 
      * ==================== VARIABLES ===================
      * ================================================== */
-    float rotationVelocity;                         //Rotation velocity (in degrees per seconds or °/s) of celestial object.
+    float rotationVelocity;            //Rotation velocity (in degrees per seconds or °/s) of celestial object.
 
     protected void Start()
     {
@@ -41,10 +48,26 @@ public class CelestialObject : MonoBehaviour
     {
         //Do a rotation.
         transform.Rotate(Vector3.up, rotationVelocity * Time.fixedDeltaTime);
+
+        //Update move by gravity force.
+        CelestialObject[] celestialObjects = FindObjectsOfType<CelestialObject>();
+        for(int i = 0; i < celestialObjects.Length; i++)
+        {
+            if (celestialObjects[i].gameObject != this.gameObject)
+            {
+                float squareDistance = Vector3.SqrMagnitude(celestialObjects[i].transform.position - this.transform.position);
+                float forceGravityMagnitude = Constants.gravity * this.GetMass() * celestialObjects[i].GetMass() / squareDistance;
+                Vector3 forceDirection = Vector3.Normalize(celestialObjects[i].transform.position - this.transform.position);
+
+                rigidbd.AddForce(forceGravityMagnitude * forceDirection, ForceMode.Impulse);
+            }
+        }
+        
+        //print("gravity = " + Constants.gravity + "\tn# celestial objects = " + celestialObjects.Length);
     }
 
     /// <summary>
-    /// Return mass of object celestial.
+    /// Mass of object celestial.
     /// </summary>
     /// <returns>Mass of object celestial.</returns>
     public float GetMass()

@@ -682,7 +682,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: -1
+    m_Resolution: 3
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
@@ -1599,7 +1599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 1.25
   tickness: 0.39
-  sidesCount: 32
+  numSides: 32
 --- !u!23 &1265607106
 MeshRenderer:
   m_ObjectHideFlags: 0

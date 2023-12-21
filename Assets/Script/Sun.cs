@@ -1,10 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Sun : SphericalCelestialObject
 {
-    [SerializeField] float temperature;     //Temperature (in Kelvin) of Sun.
+    /* ================================================== 
+     * ============= INSPECTOR'S PROPERTIES =============
+     * ================================================== */
+    [SerializeField]
+    [Tooltip("Temperature (in K)")]
+    float temperature;              //Temperature (in Kelvin) of Sun.
 
     protected new void Start()
     {
