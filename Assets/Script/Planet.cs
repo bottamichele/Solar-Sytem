@@ -1,4 +1,5 @@
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 /// <summary>
 /// A planet.
@@ -11,14 +12,44 @@ public class Planet : SphericalCelestialObject
     [Header("Orbital charateristics")]
 
     [SerializeField]
-    [Tooltip("Semi-axis major of orbital (in km).")]
-    float semiAxisMajor;                //Semi-axis major of orbital.
+    [Tooltip("Semi-major axis of orbit (in km).")]
+    float semiMajorAxis;                //Semi-major axis of orbital (in km).
 
     [SerializeField]
-    [Tooltip("Eccentricity of orbital.")]
+    [Tooltip("Eccentricity of orbit.")]
     float eccentricity;                 //Eccentricity of orbital.
 
     [SerializeField]
-    [Tooltip("Inclination orbital (in degree).")]
-    float inclination;                  //Inclination orbital.
+    [Tooltip("Longitudine of ascending node (in degree) of orbit.")]
+    float ascendingNode;                //Longitudine of ascending node (in degree).
+
+    [SerializeField]
+    [Tooltip("Argument of perihelion (in degree) of orbit.")]
+    float argumentPerihelion;            //Argument of perihelion (in degree).
+
+    [SerializeField]
+    [Tooltip("Oribital inclination (in degree).")]
+    float inclination;                  //Orbital inclination (in degree).
+
+    [SerializeField]
+    [Tooltip("Star this planet orbits.")]
+    CelestialObject star;               //Star this planet orbits.
+
+    /* ==================================================
+     * ==================== METHODS =====================
+     * ================================================== */
+
+    protected new void Start()
+    {
+        base.Start();
+        Orbit.GenerateEllipseOrbit(this, ScaleConverter.ScaleLength(semiMajorAxis), eccentricity, ascendingNode, argumentPerihelion, inclination, star);
+    }
+
+    protected new void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+    /* ==================================================
+     * ================= PUBLIC METHODS =================
+     * ================================================== */
 }

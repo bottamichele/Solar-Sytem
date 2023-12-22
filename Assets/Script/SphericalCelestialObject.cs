@@ -15,11 +15,19 @@ public class SphericalCelestialObject : CelestialObject
     [SerializeField]
     float flattening;                   //Flattening of object celestial.
 
+    /* ==================================================
+     * ==================== METHODS =====================
+     * ================================================== */
+
     protected new void Start()
     {
         base.Start();
         this.transform.localScale = ScaleConverter.ScaleSphericalCelestialObject(equatorialRadius, (1 - flattening) * equatorialRadius);
     }
+
+    /* ==================================================
+     * ================= PUBLIC METHODS =================
+     * ================================================== */
 
     /// <summary>
     /// Return equatorial radius of spherical celestial object.

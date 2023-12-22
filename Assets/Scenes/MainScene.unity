@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &135439029
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -227,6 +227,12 @@ MonoBehaviour:
   axialTilt: 26.73
   equatorialRadius: 60268
   flattening: 0.09796
+  semiMajorAxis: 1.433537e+9
+  eccentricity: 0.0565
+  ascendingNode: 113.665
+  argumentPerihelion: 339.392
+  inclination: 5.51
+  star: {fileID: 774526388}
 --- !u!135 &135439033
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -359,7 +365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &614681770
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -442,6 +448,12 @@ MonoBehaviour:
   axialTilt: 28.32
   equatorialRadius: 24764
   flattening: 0.0171
+  semiMajorAxis: 4.498408e+9
+  eccentricity: 0.008678
+  ascendingNode: 131.783
+  argumentPerihelion: 273.187
+  inclination: 6.43
+  star: {fileID: 774526388}
 --- !u!54 &614681774
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -510,7 +522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &646562439
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -593,6 +605,12 @@ MonoBehaviour:
   axialTilt: 3.13
   equatorialRadius: 71492
   flattening: 0.06487
+  semiMajorAxis: 778477400
+  eccentricity: 0.0489
+  ascendingNode: 100.464
+  argumentPerihelion: 273.867
+  inclination: 6.09
+  star: {fileID: 774526388}
 --- !u!135 &646562443
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -876,7 +894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &812437397
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -980,6 +998,12 @@ MonoBehaviour:
   axialTilt: 23.43928
   equatorialRadius: 6378.137
   flattening: 0.003352811
+  semiMajorAxis: 149598020
+  eccentricity: 0.0167086
+  ascendingNode: -11.26064
+  argumentPerihelion: 114.20783
+  inclination: 7.155
+  star: {fileID: 774526388}
 --- !u!54 &812437402
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1119,7 +1143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1011321243
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1202,6 +1226,12 @@ MonoBehaviour:
   axialTilt: 0.034
   equatorialRadius: 2440
   flattening: 0.0009
+  semiMajorAxis: 57909040
+  eccentricity: 0.20563
+  ascendingNode: 48.331
+  argumentPerihelion: 29.124
+  inclination: 7.005
+  star: {fileID: 774526388}
 --- !u!135 &1011321247
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1261,8 +1291,8 @@ GameObject:
   - component: {fileID: 1147325806}
   - component: {fileID: 1147325805}
   - component: {fileID: 1147325804}
-  - component: {fileID: 1147325809}
   - component: {fileID: 1147325808}
+  - component: {fileID: 1147325809}
   - component: {fileID: 1147325807}
   m_Layer: 0
   m_Name: Mars
@@ -1270,7 +1300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1147325804
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1353,6 +1383,12 @@ MonoBehaviour:
   axialTilt: 25.19
   equatorialRadius: 3396.2
   flattening: 0.00589
+  semiMajorAxis: 227939400
+  eccentricity: 0.0934
+  ascendingNode: 49.57854
+  argumentPerihelion: 286.5
+  inclination: 1.85
+  star: {fileID: 774526388}
 --- !u!54 &1147325808
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1413,15 +1449,15 @@ GameObject:
   - component: {fileID: 1242233576}
   - component: {fileID: 1242233575}
   - component: {fileID: 1242233580}
-  - component: {fileID: 1242233579}
   - component: {fileID: 1242233578}
+  - component: {fileID: 1242233579}
   m_Layer: 0
   m_Name: Venus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1242233575
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1525,6 +1561,12 @@ MonoBehaviour:
   axialTilt: 2.64
   equatorialRadius: 6052
   flattening: 0
+  semiMajorAxis: 108939100
+  eccentricity: 0.006772
+  ascendingNode: 76.68
+  argumentPerihelion: 54.884
+  inclination: 3.39458
+  star: {fileID: 774526388}
 --- !u!54 &1242233580
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1654,15 +1696,15 @@ GameObject:
   - component: {fileID: 1871578216}
   - component: {fileID: 1871578215}
   - component: {fileID: 1871578220}
-  - component: {fileID: 1871578219}
   - component: {fileID: 1871578218}
+  - component: {fileID: 1871578219}
   m_Layer: 0
   m_Name: Uranus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1871578215
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1766,6 +1808,12 @@ MonoBehaviour:
   axialTilt: 82.23
   equatorialRadius: 25362
   flattening: 0.022
+  semiMajorAxis: 2.870972e+9
+  eccentricity: 0.04717
+  ascendingNode: 74.006
+  argumentPerihelion: 96.998856
+  inclination: 6.48
+  star: {fileID: 774526388}
 --- !u!54 &1871578220
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -13,25 +13,30 @@ public class CelestialObject : MonoBehaviour
 
     [SerializeField] 
     [Tooltip("Mass (in kg)")]
-    float mass;                         //Mass (in kg) of celestial object.
+    float mass;                                     //Mass (in kg) of celestial object.
 
     [SerializeField]
     [Tooltip("Rotation period (in day)")]
-    float rotationPeriod;               //Period rotation (in days) of celestial object.
+    float rotationPeriod;                           //Period rotation (in days) of celestial object.
 
     [SerializeField]
     [Tooltip("Axial tilt (in degree)")]
-    float axialTilt;                    //Axial tilt (in degree) of celestial object.
+    float axialTilt;                                //Axial tilt (in degree) of celestial object.
 
     /* ==================================================
      * =================== COMPONENTS ===================
      * ================================================== */
-    Rigidbody rigidbd;                  //Rigid body of celestial object.
+    protected Rigidbody rigidbd;                    //Rigid body of celestial object.
 
     /* ================================================== 
      * ==================== VARIABLES ===================
      * ================================================== */
-    float rotationVelocity;            //Rotation velocity (in degrees per seconds or °/s) of celestial object.
+    protected float rotationVelocity;               //Rotation velocity (in degrees per seconds or °/s) of celestial object.
+
+
+    /* ==================================================
+     * ==================== METHODS =====================
+     * ================================================== */
 
     protected void Start()
     {
@@ -55,16 +60,18 @@ public class CelestialObject : MonoBehaviour
         {
             if (celestialObjects[i].gameObject != this.gameObject)
             {
-                float squareDistance = Vector3.SqrMagnitude(celestialObjects[i].transform.position - this.transform.position);
-                float forceGravityMagnitude = Constants.gravity * this.GetMass() * celestialObjects[i].GetMass() / squareDistance;
+                float distance = Vector3.Distance(celestialObjects[i].transform.position, transform.position);
+                float forceGravityMagnitude = Constants.gravity * this.GetMass() * celestialObjects[i].GetMass() / (distance * distance);
                 Vector3 forceDirection = Vector3.Normalize(celestialObjects[i].transform.position - this.transform.position);
 
-                rigidbd.AddForce(forceGravityMagnitude * forceDirection, ForceMode.Impulse);
+                rigidbd.AddForce(forceGravityMagnitude * forceDirection, ForceMode.Force);
             }
         }
-        
-        //print("gravity = " + Constants.gravity + "\tn# celestial objects = " + celestialObjects.Length);
     }
+
+    /* ==================================================
+     * ================= PUBLIC METHODS =================
+     * ================================================== */
 
     /// <summary>
     /// Mass of object celestial.

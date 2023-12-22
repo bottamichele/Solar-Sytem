@@ -22,7 +22,7 @@ public class ScaleConverter
     /// <returns>Length scaled.</returns>
     public static float ScaleLength(float length)
     {
-        return length / (1.495978707f * Mathf.Pow(10, 8) / 10);
+        return length / (1.495978707f * Mathf.Pow(10, 8) / 100);
     }
 
     /// <summary>
