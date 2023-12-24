@@ -36,13 +36,25 @@ public class Planet : SphericalCelestialObject
     CelestialObject star;               //Star this planet orbits.
 
     /* ==================================================
+     * =================== VARIABLES ====================
+     * ================================================== */
+
+    /* ==================================================
      * ==================== METHODS =====================
      * ================================================== */
 
     protected new void Start()
     {
         base.Start();
-        Orbit.GenerateEllipseOrbit(this, ScaleConverter.ScaleLength(semiMajorAxis), eccentricity, ascendingNode, argumentPerihelion, inclination, star);
+
+        //Generate the orbit.
+        Orbit.GenerateEllipseOrbit(this,
+                                   ScaleConverter.ScaleLength(semiMajorAxis),
+                                   eccentricity,
+                                   ascendingNode,
+                                   argumentPerihelion,
+                                   inclination,
+                                   star);
     }
 
     protected new void FixedUpdate()

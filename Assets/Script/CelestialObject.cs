@@ -79,6 +79,7 @@ public class CelestialObject : MonoBehaviour
     /// <returns>Mass of object celestial.</returns>
     public float GetMass()
     {
-        return rigidbd.mass;
+        //return rigidbd.mass;      --> Throw a NullReferenceException by Jupiter, Saturn and Neptune.
+        return this.GetComponent<Rigidbody>().mass;
     }
 }
