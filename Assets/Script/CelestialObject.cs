@@ -40,7 +40,7 @@ public class CelestialObject : MonoBehaviour
 
     protected void Start()
     {
-        rigidbd = GetComponent<Rigidbody>();
+        rigidbd = gameObject.GetComponent<Rigidbody>();
         rigidbd.mass = ScaleConverter.ScaleMass(mass);
         rigidbd.useGravity = false;
 
@@ -79,7 +79,6 @@ public class CelestialObject : MonoBehaviour
     /// <returns>Mass of object celestial.</returns>
     public float GetMass()
     {
-        //return rigidbd.mass;      --> Throw a NullReferenceException by Jupiter, Saturn and Neptune.
-        return this.GetComponent<Rigidbody>().mass;
+        return ScaleConverter.ScaleMass(this.mass);
     }
 }
