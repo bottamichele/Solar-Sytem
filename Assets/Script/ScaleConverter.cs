@@ -22,7 +22,7 @@ public class ScaleConverter
     /// <returns>Length scaled.</returns>
     public static float ScaleLength(float length)
     {
-        return length / (1.495978707f * Mathf.Pow(10, 8) / 100);
+        return length / (1.495978707f * Mathf.Pow(10, 8)) * 10.0f;
     }
 
     /// <summary>
@@ -43,7 +43,7 @@ public class ScaleConverter
     /// <returns>Celestial object scaled for a specific cartesian axis.</returns>
     public static float ScaleSingleAxisOfCelestialObject(float radius)
     {
-        return radius / 6378.137f;
+        return radius / (6378.137f * 5f);
     }
 
     /// <summary>
