@@ -74,11 +74,20 @@ public class CelestialObject : MonoBehaviour
      * ================================================== */
 
     /// <summary>
-    /// Mass of object celestial.
+    /// Mass of celestial object.
     /// </summary>
-    /// <returns>Mass of object celestial.</returns>
+    /// <returns>Mass.</returns>
     public float GetMass()
     {
         return ScaleConverter.ScaleMass(this.mass);
+    }
+
+    /// <summary>
+    /// Rotation period of celestial object.
+    /// </summary>
+    /// <returns>Rotation period.</returns>
+    public float GetRotationPeriod()
+    {
+        return ScaleConverter.ScaleTime(86400 * this.rotationPeriod);
     }
 }
