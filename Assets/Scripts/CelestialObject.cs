@@ -54,6 +54,9 @@ public class CelestialObject : MonoBehaviour
         //Do a rotation.
         transform.Rotate(Vector3.up, rotationVelocity * Time.fixedDeltaTime);
 
+        for (int i = 0; i < this.transform.childCount; i++)     //Game object children must not be affected by celestial object's rotation.
+            this.transform.GetChild(i).Rotate(Vector3.up, -rotationVelocity * Time.fixedDeltaTime); 
+
         //Update move by gravity force.
         CelestialObject[] celestialObjects = FindObjectsOfType<CelestialObject>();
         for(int i = 0; i < celestialObjects.Length; i++)
