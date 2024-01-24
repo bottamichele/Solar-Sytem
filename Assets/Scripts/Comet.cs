@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,7 +12,7 @@ public class Comet : SphericalCelestialObject
     /// <summary>
     /// Maximum length of tail possible (in km) can be done by a comet.
     /// </summary>
-    public const float MAXIMUM_LENGTH_TAIL_POSSIBLE = 6378.137f * 2 * 15.0f;    //15 times bigger than Earth's diameter.
+    const float MAXIMUM_LENGTH_TAIL_POSSIBLE = 2 * 6378.137f * 10.0f;    //19 times bigger of Earth's diameter.
 
     /// <summary>
     /// Minimim distance (in km) from sun that appears tail.
@@ -52,16 +50,12 @@ public class Comet : SphericalCelestialObject
     [Tooltip("Star this comet orbits.")]
     CelestialObject star;                                   //Star this comet orbits.
 
-    /* ---------- "Comet charateristics" Section ---------- */
-    [Header("Comet charateristics")]
-
-    [SerializeField]
-    [Tooltip("Maximum length of tail of this comet (in km).")]
-    float maximumLengthTail;                                //Maximum length of tail of this comet (in km).
-
     /* ================================================== 
      * =================== VARIABLES ====================
      * ================================================== */
+    float minDistanceTailAppears;
+
+    /* ---------- Comet tail charateristics ---------- */
     float maxLengthTail;                                    //Maximum length of tail of this comet.
     float currentLengthTail;                                //Current length of tail of this comet.
     GameObject cometTail;                                   //Comet tail.
@@ -74,38 +68,38 @@ public class Comet : SphericalCelestialObject
     {
         base.Start();
 
-        maxLengthTail = ScaleConverter.ScaleSingleAxisOfCelestialObject(maximumLengthTail);
+        minDistanceTailAppears = ScaleConverter.ScaleLength(MIN_DISTANCE_TAIL_APPEARS);
+
+        //Set comet tail charateristics.
+        maxLengthTail = ScaleConverter.ScaleSingleAxisOfCelestialObject(MAXIMUM_LENGTH_TAIL_POSSIBLE);
         currentLengthTail = 0.0f;
         
+        //Set comet tail to this game object.
         cometTail = Instantiate(GameObject.FindGameObjectWithTag("TemplateTailComet"), this.transform);
         cometTail.tag = "Untagged";
+        cometTail.layer = 0;
 
+        //Generate the orbit of this comet.
         if (eccentricity < 1.0f)
             Orbit.GenerateEllipseOrbit(this, ScaleConverter.ScaleLength(semiMajorAxis), eccentricity, ascendingNode, argumentPerihelion, inclination, star);
-
-        ParticleSystem p = cometTail.GetComponent<ParticleSystem>();
-        var mmm = p.main;
-        mmm.startLifetime = maxLengthTail;
     }
 
     protected new void FixedUpdate()
     {
         base.FixedUpdate();
 
+        //Update comet tail's direction towards Sun.
         cometTail.transform.rotation = Quaternion.LookRotation((this.transform.position - star.transform.position).normalized);
-        //cometTail.transform.rotation = Quaternion.RotateTowards(cometTail.transform.rotation, star.transform.rotation, 360);
-        //cometTail.transform.rotation = Quaternion.FromToRotation(this.transform.position, star.transform.position);
-    }
 
-    void aaa()
-    {
-        ParticleSystem psComet = cometTail.GetComponent<ParticleSystem>();
+        //Update length of tail.
+        float currentDistance = Vector3.Distance(this.transform.position, star.transform.position);
+        if (currentDistance <= minDistanceTailAppears)
+            currentLengthTail = maxLengthTail * (1.0f - currentDistance / minDistanceTailAppears);
+        else
+            currentLengthTail = 0.0f;
 
-        ParticleSystem.ShapeModule shapeComponent = psComet.shape;
-        shapeComponent.enabled = true;
-        shapeComponent.shapeType = ParticleSystemShapeType.Cone;
-        shapeComponent.radius = 0.5f;
-        shapeComponent.radiusThickness = 1.0f;
-        shapeComponent.angle = 5.0f;
+        ParticleSystem psTail = cometTail.GetComponent<ParticleSystem>();
+        var psTailMain = psTail.main;
+        psTailMain.startLifetime = currentLengthTail / psTailMain.startSpeed.constant;
     }
 }

@@ -319,13 +319,12 @@ MonoBehaviour:
   axialTilt: 0
   equatorialRadius: 15
   flattening: 0.4666667
-  semiMajorAxis: 229867800
-  eccentricity: 0.096658
+  semiMajorAxis: 149598000
+  eccentricity: 0.8
   ascendingNode: 59.396
   argumentPerihelion: 112.05
   inclination: 161.96
   star: {fileID: 774526388}
-  maximumLengthTail: 150000
 --- !u!54 &244887899
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -514,7 +513,7 @@ GameObject:
   - component: {fileID: 585804413}
   - component: {fileID: 585804412}
   - component: {fileID: 585804411}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Template Tail Comet
   m_TagString: TemplateTailComet
   m_Icon: {fileID: 0}
@@ -611,7 +610,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -678,7 +677,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.0001
+      scalar: 4.13
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5663,7 +5662,7 @@ GameObject:
   - component: {fileID: 774526391}
   - component: {fileID: 774526388}
   - component: {fileID: 774526392}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6160,7 +6159,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -6837,7 +6836,6 @@ MonoBehaviour:
   argumentPerihelion: 112.05
   inclination: 161.96
   star: {fileID: 774526388}
-  maximumLengthTail: 50000
 --- !u!54 &1711697507
 Rigidbody:
   m_ObjectHideFlags: 0
