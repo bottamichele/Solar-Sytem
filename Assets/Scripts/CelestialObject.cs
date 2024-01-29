@@ -13,15 +13,15 @@ public class CelestialObject : MonoBehaviour
 
     [SerializeField] 
     [Tooltip("Mass (in kg)")]
-    float mass;                                     //Mass (in kg) of celestial object.
+    float mass;                           //Mass (in kg) of celestial object.
 
     [SerializeField]
     [Tooltip("Rotation period (in day)")]
-    float rotationPeriod;                           //Period rotation (in days) of celestial object.
+    float rotationPeriod;                 //Period rotation (in days) of celestial object.
 
     [SerializeField]
     [Tooltip("Axial tilt (in degree)")]
-    float axialTilt;                                //Axial tilt (in degree) of celestial object.
+    float axialTilt;                      //Axial tilt (in degree) of celestial object.
 
     /* ==================================================
      * =================== COMPONENTS ===================

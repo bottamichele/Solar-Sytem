@@ -12,7 +12,7 @@ public class Comet : SphericalCelestialObject
     /// <summary>
     /// Maximum length of tail possible (in km) can be done by a comet.
     /// </summary>
-    const float MAXIMUM_LENGTH_TAIL_POSSIBLE = 2 * 6378.137f * 10.0f;    //19 times bigger of Earth's diameter.
+    const float MAXIMUM_LENGTH_TAIL_POSSIBLE = 2 * 6378.137f * 10.0f;    //10 times bigger of Earth's diameter.
 
     /// <summary>
     /// Minimim distance (in km) from sun that appears tail.
@@ -50,6 +50,12 @@ public class Comet : SphericalCelestialObject
     [Tooltip("Star this comet orbits.")]
     CelestialObject star;                                   //Star this comet orbits.
 
+    [Header("Other options")]
+
+    [SerializeField]
+    [Tooltip("Is this comet created via editor?")]
+    bool isCreatedByEditor = false;
+
     /* ================================================== 
      * =================== VARIABLES ====================
      * ================================================== */
@@ -68,6 +74,7 @@ public class Comet : SphericalCelestialObject
     {
         base.Start();
 
+        //Scaling.
         minDistanceTailAppears = ScaleConverter.ScaleLength(MIN_DISTANCE_TAIL_APPEARS);
 
         //Set comet tail charateristics.
@@ -79,9 +86,8 @@ public class Comet : SphericalCelestialObject
         cometTail.tag = "Untagged";
         cometTail.layer = 0;
 
-        //Generate the orbit of this comet.
-        if (eccentricity < 1.0f)
-            Orbit.GenerateEllipseOrbit(this, ScaleConverter.ScaleLength(semiMajorAxis), eccentricity, ascendingNode, argumentPerihelion, inclination, star);
+        if (isCreatedByEditor)
+            GenerateOrbit();
     }
 
     protected new void FixedUpdate()
@@ -101,5 +107,37 @@ public class Comet : SphericalCelestialObject
         ParticleSystem psTail = cometTail.GetComponent<ParticleSystem>();
         var psTailMain = psTail.main;
         psTailMain.startLifetime = currentLengthTail / psTailMain.startSpeed.constant;
+    }
+
+    /* ================================================== 
+     * ================= PUBLIC METHODS =================
+     * ================================================== */
+
+    /// <summary>
+    /// Set orbital charateristics of this comet.
+    /// </summary>
+    /// <param name="semiMajorAxis">Semi-major axis of orbital (in km).</param>
+    /// <param name="eccentricity">Eccentricity of orbital.</param>
+    /// <param name="ascendingNode">Longitudine of ascending node (in degree).</param>
+    /// <param name="argumentPerihelion">Argument of perihelion (in degree).</param>
+    /// <param name="inclination">Orbital inclination (in degree).</param>
+    /// <param name="star">Star this comet orbits.</param>
+    public void SetOrbitalCharateristics(float semiMajorAxis, float eccentricity, float ascendingNode, float argumentPerihelion, float inclination, CelestialObject star)
+    {
+        this.semiMajorAxis = semiMajorAxis;
+        this.eccentricity = eccentricity;
+        this.ascendingNode = ascendingNode;
+        this.argumentPerihelion = argumentPerihelion;
+        this.inclination = inclination;
+        this.star = star;
+    }
+
+    /// <summary>
+    /// Generate orbit of this comet.
+    /// </summary>
+    public void GenerateOrbit()
+    {
+        if (eccentricity < 1.0f)
+            Orbit.GenerateEllipseOrbit(this, ScaleConverter.ScaleLength(semiMajorAxis), eccentricity, ascendingNode, argumentPerihelion, inclination, star);
     }
 }
