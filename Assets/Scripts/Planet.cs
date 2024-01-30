@@ -43,12 +43,12 @@ public class Planet : SphericalCelestialObject
         base.Start();
 
         //Generate the orbit.
-        Orbit.GenerateEllipseOrbit(this,
-                                   ScaleConverter.ScaleLength(semiMajorAxis),
-                                   eccentricity,
-                                   ascendingNode,
-                                   argumentPerihelion,
-                                   inclination,
-                                   star);
+        OrbitGenerator.GenerateEllipseOrbit(this,
+                                            ScaleConverter.ScaleLength(semiMajorAxis),
+                                            eccentricity,
+                                            ascendingNode,
+                                            argumentPerihelion,
+                                            inclination,
+                                            star);
     }
 }

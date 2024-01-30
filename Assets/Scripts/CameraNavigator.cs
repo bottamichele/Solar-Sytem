@@ -42,19 +42,19 @@ public class CameraNavigator : MonoBehaviour
     void MoveCamera()
     {
         //Move camera foward.
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             transform.position += transform.forward.normalized  * SPEED * Time.fixedDeltaTime;
 
         //Move camera backward.
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             transform.position -= transform.forward.normalized  * SPEED * Time.fixedDeltaTime;
 
         //Strafe camera towards right.
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             transform.position += transform.right.normalized    * SPEED * Time.fixedDeltaTime;
 
         //Strage camera towards left.
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             transform.position -= transform.right.normalized    * SPEED * Time.fixedDeltaTime;
 
         //Move camera towards up.
@@ -62,7 +62,7 @@ public class CameraNavigator : MonoBehaviour
             transform.position += transform.up.normalized       * SPEED * Time.fixedDeltaTime;
 
         //Move camera towards down.
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift))
             transform.position -= transform.up.normalized       * SPEED * Time.fixedDeltaTime;
     }
 

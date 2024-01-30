@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -18,6 +19,11 @@ public class Comet : SphericalCelestialObject
     /// Minimim distance (in km) from sun that appears tail.
     /// </summary>
     const float MIN_DISTANCE_TAIL_APPEARS = 4.0f * 149597887.5f;   // = 4 U.A.
+
+    /// <summary>
+    /// Minimum distance (in km) to generate a comet via script.
+    /// </summary>
+    public const float MIN_DISTANCE_TO_GENERATE = 5.0f * 149597887.5f;
 
     /* ==================================================
      * ============= INSPECTOR'S PROPERTIES =============
@@ -109,6 +115,11 @@ public class Comet : SphericalCelestialObject
         psTailMain.startLifetime = currentLengthTail / psTailMain.startSpeed.constant;
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        Destroy(this);
+    }
+
     /* ================================================== 
      * ================= PUBLIC METHODS =================
      * ================================================== */
@@ -135,9 +146,14 @@ public class Comet : SphericalCelestialObject
     /// <summary>
     /// Generate orbit of this comet.
     /// </summary>
-    public void GenerateOrbit()
+    /// <param name="isBeginState">Is begin state of scene for comet created via script?</param>
+    public void GenerateOrbit(bool isBeginState=false)
     {
-        if (eccentricity < 1.0f)
-            Orbit.GenerateEllipseOrbit(this, ScaleConverter.ScaleLength(semiMajorAxis), eccentricity, ascendingNode, argumentPerihelion, inclination, star);
+        if (isCreatedByEditor)
+            OrbitGenerator.GenerateEllipseOrbit(this, ScaleConverter.ScaleLength(semiMajorAxis), eccentricity, ascendingNode, argumentPerihelion, inclination, star);
+        else if(isBeginState)
+            OrbitGenerator.GenerateOrbitCometNearSun(this, ScaleConverter.ScaleLength(semiMajorAxis), eccentricity, ascendingNode, argumentPerihelion, inclination, star);
+        else
+            OrbitGenerator.GenerateOrbitCometScript(this, ScaleConverter.ScaleLength(semiMajorAxis), eccentricity, ascendingNode, argumentPerihelion, inclination, star);
     }
 }
