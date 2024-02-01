@@ -23,7 +23,7 @@ public class Comet : SphericalCelestialObject
     /// <summary>
     /// Minimum distance (in km) to generate a comet via script.
     /// </summary>
-    public const float MIN_DISTANCE_TO_GENERATE = 5.0f * 149597887.5f;
+    public const float MIN_DISTANCE_TO_GENERATE = 3.0f * 149597887.5f;
 
     /* ==================================================
      * ============= INSPECTOR'S PROPERTIES =============
@@ -90,7 +90,7 @@ public class Comet : SphericalCelestialObject
         //Set comet tail to this game object.
         cometTail = Instantiate(GameObject.FindGameObjectWithTag("TemplateTailComet"), this.transform);
         cometTail.tag = "Untagged";
-        cometTail.layer = 0;
+        cometTail.layer = gameObject.layer;
 
         if (isCreatedByEditor)
             GenerateOrbit();
@@ -117,7 +117,8 @@ public class Comet : SphericalCelestialObject
 
     void OnCollisionEnter(Collision collision)
     {
-        Destroy(this);
+        if(this.tag != "GenericComet")
+            Destroy(this.gameObject);
     }
 
     /* ================================================== 
