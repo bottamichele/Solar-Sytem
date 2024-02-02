@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TemplateTailComet
   - GenericComet
+  - TemplateExplosionCometSunCollision
   layers:
   - Default
   - TransparentFX

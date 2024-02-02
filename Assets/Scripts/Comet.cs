@@ -137,7 +137,16 @@ public class Comet : SphericalCelestialObject
             cometTail.transform.parent = null;
             cometTail.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             cometTail.name = this.name + " Tail";
-            cometTail.AddComponent<CometTailAutodestroy>();
+            cometTail.AddComponent<ParticleSystemAutodestroy>();
+
+            if(collision.collider.gameObject.name.Contains("Sun"))
+            {
+                GameObject explosion = Instantiate(GameObject.FindGameObjectWithTag("TemplateExplosionCometSunCollision"), cometTail.transform.position, cometTail.transform.rotation);
+                explosion.name = this.name + " Explosion";
+                explosion.tag = "Untagged";
+                explosion.layer = 0;
+                explosion.AddComponent<ParticleSystemAutodestroy>();
+            }
 
             //Destroy this comet and not tail.
             Destroy(this.gameObject);

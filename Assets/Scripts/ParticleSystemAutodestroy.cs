@@ -1,14 +1,14 @@
 using UnityEngine;
 
 /// <summary>
-/// Auto destroyer is enabled for comet tail whwn comet collides a celestial body.
+/// Auto destroyer is enabled for a particle system that is occured.
 /// </summary>
-public class CometTailAutodestroy : MonoBehaviour
+public class ParticleSystemAutodestroy : MonoBehaviour
 {
     /* ==================================================
      * ==================== VARIABLES ===================
      * ================================================== */
-    float timer;        //Timer (in seconds) to destroy this comet tail.
+    float timer;        //Timer (in seconds) to destroy this particle system object.
 
     /* ==================================================
      * ===================== METHODS ====================
