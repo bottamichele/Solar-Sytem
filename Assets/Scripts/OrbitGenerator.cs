@@ -174,11 +174,10 @@ public class OrbitGenerator
         Matrix4x4 translateTowardsSun = Matrix4x4.Translate(sun.transform.position);
 
         Func<Vector3, Vector3> computeFinalDistance = x => { return (translateTowardsSun * rotateEllipse).MultiplyPoint3x4(x); };
-        Func<Vector3, Vector3> computeFinalVelocity = x_dir => { return velocityMagnitude * Matrix4x4.Rotate(Quaternion.Euler(0.0f, -90.0f, 0.0f)).MultiplyPoint3x4(rotateEllipse.MultiplyPoint3x4(x_dir)); };
-        Func<Vector3, Vector3> computeFinalPositionDir = x_dir => { return rotateEllipse.MultiplyPoint3x4(x_dir); };
         Func<Vector3, Vector3> computeFinalVelocityDir = x_dir => { return (Matrix4x4.Rotate(Quaternion.Euler(0.0f, -90.0f, 0.0f)) * rotateEllipse).MultiplyPoint3x4(x_dir); };
+        Func<Vector3, Vector3> computeFinalVelocity = x_dir => { return velocityMagnitude * computeFinalVelocityDir(x_dir); };
 
-        Vector3 finalF1Dir = rotateEllipse.MultiplyPoint3x4(Vector3.left);
+        Vector3 finalF1Dir = -rotateEllipse.MultiplyPoint3x4(Vector3.right);
         Vector3 finalPosition1 = is_y1_not_skipped ? computeFinalDistance(position1) : invalid;
         Vector3 finalVelocity1 = is_y1_not_skipped ? computeFinalVelocity(position1Dir) : invalid;
         Vector3 finalVelocityDir1 = is_y1_not_skipped? computeFinalVelocityDir(position1Dir) : invalid;
@@ -197,7 +196,7 @@ public class OrbitGenerator
             comet.transform.position = finalPosition1;
             comet.GetComponent<Rigidbody>().velocity = finalVelocity1;
         }
-        else if (is_y2_not_skipped && Vector3.Dot(finalVelocityDir2, finalF1Dir) < 0.0f)
+        else if (is_y2_not_skipped && Vector3.Dot(finalVelocityDir2, finalF1Dir) > 0.0f)
         {
             comet.transform.position = finalPosition2;
             comet.GetComponent<Rigidbody>().velocity = finalVelocity2;

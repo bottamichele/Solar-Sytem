@@ -13,7 +13,7 @@ public class Comet : SphericalCelestialObject
     /// <summary>
     /// Maximum length of tail possible (in km) can be done by a comet.
     /// </summary>
-    const float MAXIMUM_LENGTH_TAIL_POSSIBLE = 2 * 6378.137f * 10.0f;    //10 times bigger of Earth's diameter.
+    const float MAXIMUM_LENGTH_TAIL_POSSIBLE = 2 * 6378.137f * 5.0f;    //5 times bigger of Earth's diameter.
 
     /// <summary>
     /// Minimim distance (in km) from sun that appears tail.
@@ -23,7 +23,7 @@ public class Comet : SphericalCelestialObject
     /// <summary>
     /// Minimum distance (in km) to generate a comet via script.
     /// </summary>
-    public const float MIN_DISTANCE_TO_GENERATE = 3.0f * 149597887.5f;
+    public const float MIN_DISTANCE_TO_GENERATE = 4.0f * 149597887.5f;
 
     /* ==================================================
      * ============= INSPECTOR'S PROPERTIES =============
