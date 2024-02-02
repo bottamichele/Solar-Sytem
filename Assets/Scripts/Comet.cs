@@ -71,6 +71,7 @@ public class Comet : SphericalCelestialObject
     float maxLengthTail;                                    //Maximum length of tail of this comet.
     float currentLengthTail;                                //Current length of tail of this comet.
     GameObject cometTail;                                   //Comet tail.
+    ParticleSystem psCometTail;                             //cometTail's particle system.
 
     /* ==================================================
      * ==================== METHODS =====================
@@ -91,6 +92,8 @@ public class Comet : SphericalCelestialObject
         cometTail = Instantiate(GameObject.FindGameObjectWithTag("TemplateTailComet"), this.transform);
         cometTail.tag = "Untagged";
         cometTail.layer = gameObject.layer;
+        psCometTail = cometTail.GetComponent<ParticleSystem>();
+        psCometTail.Clear();
 
         if (isCreatedByEditor)
             GenerateOrbit();
@@ -110,15 +113,35 @@ public class Comet : SphericalCelestialObject
         else
             currentLengthTail = 0.0f;
 
-        ParticleSystem psTail = cometTail.GetComponent<ParticleSystem>();
-        var psTailMain = psTail.main;
+        var psTailMain = psCometTail.main;
         psTailMain.startLifetime = currentLengthTail / psTailMain.startSpeed.constant;
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if(this.tag != "GenericComet")
+        {
+            //Change some properties of cometTail's particle system.
+            psCometTail.Stop();
+            psCometTail.Clear();
+
+            var psTailMain = psCometTail.main;
+            psTailMain.duration = 1.0f;
+
+            psCometTail.Play();
+            
+            psTailMain.prewarm = true;
+            psTailMain.loop = false;
+
+            //Change some properties of cometTail.
+            cometTail.transform.parent = null;
+            cometTail.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            cometTail.name = this.name + " Tail";
+            cometTail.AddComponent<CometTailAutodestroy>();
+
+            //Destroy this comet and not tail.
             Destroy(this.gameObject);
+        }
     }
 
     /* ================================================== 

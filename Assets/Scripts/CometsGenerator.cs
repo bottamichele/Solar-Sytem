@@ -12,7 +12,7 @@ public class CometsGenerator : MonoBehaviour
     /// <summary>
     /// Maximum number of comets that appear at initial scene.
     /// </summary>
-    const int MAX_INITIAL_COMETS = 3;
+    const int MAX_INITIAL_COMETS = 5;
 
     /// <summary>
     /// Probability to generated a comet.
@@ -68,7 +68,7 @@ public class CometsGenerator : MonoBehaviour
         }
     }
 
-    GameObject CreateNewComet(bool isInitial=false)
+    void CreateNewComet(bool isInitial=false)
     {
         numCometCreated++;
         Sun sun = GameObject.Find("Sun").GetComponent<Sun>();
@@ -83,9 +83,9 @@ public class CometsGenerator : MonoBehaviour
 
         nwc.SetOrbitalCharateristics(Random.Range(10.0f, 20.0f) * 149597887.5f, 
                                      Random.Range(0.8f, 0.95f), 
-                                     Random.Range(0.0f, 90.0f), 
                                      Random.Range(0.0f, 180.0f), 
-                                     Random.Range(0.0f, 30.0f), 
+                                     Random.Range(0.0f, 180.0f), 
+                                     Random.Range(0.0f, 20.0f), 
                                      sun);
         nwc.GenerateOrbit(isInitial);
 
@@ -94,7 +94,5 @@ public class CometsGenerator : MonoBehaviour
             Vector3 randomVector = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
             newComet.GetComponent<Rigidbody>().velocity = -0.5f * (newComet.transform.position - sun.transform.position + randomVector).normalized;
         }
-
-        return newComet;
     }
 }
