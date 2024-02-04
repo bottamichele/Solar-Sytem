@@ -22,7 +22,7 @@ public class CameraNavigator : MonoBehaviour
     /// <summary>
     /// Sensitivity mouse to rotate camera.
     /// </summary>
-    const float SENSITIVITY = 3.0f;
+    const float SENSITIVITY = 1.25f;
 
     /* ==================================================
      * =================== VARIABLES ====================
@@ -35,7 +35,11 @@ public class CameraNavigator : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        currentRotation.x = transform.rotation.eulerAngles.y;
+        currentRotation.y = transform.rotation.eulerAngles.x;
     }
 
     void FixedUpdate()
@@ -76,9 +80,9 @@ public class CameraNavigator : MonoBehaviour
     void RotateCamera()
     {
         currentRotation.x += SENSITIVITY * Input.GetAxis("Mouse X");
-        currentRotation.y += SENSITIVITY * Input.GetAxis("Mouse Y");
+        currentRotation.y -= SENSITIVITY * Input.GetAxis("Mouse Y");
         currentRotation.y = Mathf.Clamp(currentRotation.y, -89.5f, 89.5f);
 
-        transform.localRotation = Quaternion.Euler(-currentRotation.y, currentRotation.x, 0.0f);
+        transform.localRotation = Quaternion.Euler(currentRotation.y, currentRotation.x, 0.0f);
     }
 }
